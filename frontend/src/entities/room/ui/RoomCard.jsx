@@ -18,14 +18,20 @@ export function RoomCard({ room }) {
 					height: 170,
 					borderRadius: 12,
 					background: 'rgba(0,0,0,0.06)',
-					display: 'grid',
-					placeItems: 'center',
-					fontSize: 14,
-					opacity: 0.8,
 					overflow: 'hidden',
 				}}
 			>
-				Фото
+				<img
+					src={room.image}
+					alt={room.title}
+					style={{
+						width: '100%',
+						height: '100%',
+						objectFit: 'cover',
+						display: 'block',
+					}}
+					loading="lazy"
+				/>
 			</div>
 
 			<div style={{ display: 'grid', gap: 6 }}>

@@ -11,15 +11,26 @@ function randomId(prefix) {
 function seedRooms() {
 	return Array.from({ length: 20 }, (_, i) => {
 		const number = i + 1;
+
+		const imgIndex = ((number - 1) % 3) + 1;
+		const image = `/images/rooms/room${imgIndex}.webp`;
+		const gallery = [
+			'/images/rooms/room1.webp',
+			'/images/rooms/room2.webp',
+			'/images/rooms/room3.webp',
+		];
+
 		return {
 			id: `r${number}`,
 			number,
 			title: `Номер #${number}`,
-			description: `Описание номера #${number}`,
+			description:
+				'Уютный номер с базовыми удобствами для комфортного отдыха. Подходит для 1–2 гостей.',
 			price: 3000 + number * 250,
 			status: number <= 2 ? 'reserved' : 'available',
-			image: '',
-			amenities: ['Wi-Fi', 'TV'],
+			image,
+			gallery,
+			amenities: ['Wi-Fi', 'TV', 'Душ', 'Полотенца'],
 		};
 	});
 }

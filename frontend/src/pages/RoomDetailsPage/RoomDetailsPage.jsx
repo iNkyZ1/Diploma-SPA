@@ -66,16 +66,49 @@ export function RoomDetailsPage() {
 
 			<div
 				style={{
-					height: 220,
+					height: 320,
 					borderRadius: 14,
 					background: 'rgba(0,0,0,0.06)',
-					display: 'grid',
-					placeItems: 'center',
-					opacity: 0.85,
+					overflow: 'hidden',
 				}}
 			>
-				Фото
+				<img
+					src={room.image}
+					alt={room.title}
+					style={{
+						width: '100%',
+						height: '100%',
+						objectFit: 'cover',
+						display: 'block',
+					}}
+				/>
 			</div>
+
+			{Array.isArray(room.gallery) && room.gallery.length > 0 && (
+				<div style={{ display: 'flex', gap: 10, flexWrap: 'wrap' }}>
+					{room.gallery.map((src) => (
+						<img
+							key={src}
+							src={src}
+							alt="gallery"
+							style={{
+								width: 120,
+								height: 80,
+								borderRadius: 10,
+								objectFit: 'cover',
+								border: '1px solid rgba(0,0,0,0.12)',
+							}}
+							loading="lazy"
+						/>
+					))}
+				</div>
+			)}
+
+			{Array.isArray(room.amenities) && room.amenities.length > 0 && (
+				<div style={{ fontSize: 14, opacity: 0.9 }}>
+					<b>Удобства:</b> {room.amenities.join(', ')}
+				</div>
+			)}
 
 			<BookingForm roomId={room.id} roomStatus={room.status} onBooked={load} />
 		</div>
