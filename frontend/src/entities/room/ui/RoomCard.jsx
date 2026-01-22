@@ -1,4 +1,5 @@
 import { Link } from 'react-router-dom';
+import { Button } from '../../../shared/ui/Button';
 
 export function RoomCard({ room }) {
 	return (
@@ -59,7 +60,7 @@ export function RoomCard({ room }) {
 
 			<div style={{ marginTop: 'auto' }}>
 				<Link to={`/rooms/${room.id}`} style={{ textDecoration: 'none' }}>
-					<button style={{ width: '100%' }}>Открыть</button>
+					<Button fullWidth>Открыть</Button>
 				</Link>
 			</div>
 		</article>

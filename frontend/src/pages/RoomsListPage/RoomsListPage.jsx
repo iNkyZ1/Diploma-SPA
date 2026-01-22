@@ -11,6 +11,7 @@ import {
 import { RoomCard } from '../../entities/room';
 import { Pagination } from '../../shared/ui/Pagination';
 import { Alert } from '../../shared/ui/Alert';
+import { Button } from '../../shared/ui/Button';
 import { getApiErrorMessage } from '../../shared/lib/getApiErrorMessage';
 
 const PAGE_SIZE = 9;
@@ -78,9 +79,7 @@ export function RoomsListPage() {
 			{status === 'failed' && (
 				<div style={{ display: 'grid', gap: 10 }}>
 					<Alert>{getApiErrorMessage(error) || 'Ошибка загрузки'}</Alert>
-					<button onClick={load} style={{ width: 'fit-content' }}>
-						Повторить
-					</button>
+					<Button onClick={load}>Повторить</Button>
 				</div>
 			)}
 

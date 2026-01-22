@@ -12,6 +12,7 @@ import {
 import { fetchRoomsThunk, selectRooms } from '../../features/rooms/model/roomsSlice';
 import { BookingCard } from '../../entities/booking';
 import { Alert } from '../../shared/ui/Alert';
+import { Button } from '../../shared/ui/Button';
 import { getApiErrorMessage } from '../../shared/lib/getApiErrorMessage';
 
 export function MyBookingsPage() {
@@ -60,9 +61,7 @@ export function MyBookingsPage() {
 			{status === 'failed' && (
 				<div style={{ display: 'grid', gap: 10 }}>
 					<Alert>{getApiErrorMessage(error) || 'Ошибка загрузки'}</Alert>
-					<button onClick={load} style={{ width: 'fit-content' }}>
-						Повторить
-					</button>
+					<Button onClick={load}>Повторить</Button>
 				</div>
 			)}
 
