@@ -7,13 +7,8 @@ export function AppLayout() {
 		<div style={{ minHeight: '100vh', display: 'flex', flexDirection: 'column' }}>
 			<Header />
 			<main
-				style={{
-					padding: 16,
-					maxWidth: 1100,
-					margin: '0 auto',
-					width: '100%',
-					flex: 1,
-				}}
+				className="container"
+				style={{ paddingTop: 16, paddingBottom: 16, flex: 1 }}
 			>
 				<Outlet />
 			</main>

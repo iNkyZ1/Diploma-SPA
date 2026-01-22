@@ -1,0 +1,28 @@
+.container {
+	max-width: var(--container);
+	margin: 0 auto;
+	padding: 0 16px;
+	width: 100%;
+}
+
+.stack {
+	display: grid;
+	gap: var(--space-3);
+}
+
+.card {
+	border: 1px solid var(--border);
+	border-radius: var(--radius-lg);
+	padding: 14px;
+	background: var(--bg);
+	box-shadow: var(--shadow-sm);
+}
+
+.muted {
+	opacity: 0.8;
+}
+
+.center {
+	display: grid;
+	place-items: center;
+}
