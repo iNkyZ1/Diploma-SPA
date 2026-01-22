@@ -8,14 +8,14 @@ import {
 	selectRoomsError,
 	selectRoomsStatus,
 } from '../../features/rooms/model/roomsSlice';
-import { BookingForm } from '../../features/bookings/ui/BookingForm';
 
-function getErrorText(err) {
-	if (!err) return null;
-	if (err.status === 404) return 'Номер не найден';
-	if (err.status === 0) return 'Сеть недоступна. Попробуйте ещё раз.';
-	return err.message || 'Ошибка';
-}
+import { Card } from '../../shared/ui/Card';
+import { Alert } from '../../shared/ui/Alert';
+import { Button } from '../../shared/ui/Button';
+import { Loader } from '../../shared/ui/Loader';
+import { getApiErrorMessage } from '../../shared/lib/getApiErrorMessage';
+
+import { BookingForm } from '../../features/booking/ui/BookingForm';
 
 export function RoomDetailsPage() {
 	const { id } = useParams();
@@ -32,15 +32,13 @@ export function RoomDetailsPage() {
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [id]);
 
-	if (status === 'loading') return <div>Загрузка...</div>;
+	if (status === 'loading') return <Loader />;
 
 	if (status === 'failed') {
 		return (
-			<div style={{ display: 'grid', gap: 10 }}>
-				<div style={{ color: 'crimson' }}>{getErrorText(error)}</div>
-				<button onClick={load} style={{ width: 'fit-content' }}>
-					Повторить
-				</button>
+			<div className="stack">
+				<Alert>{getApiErrorMessage(error) || 'Ошибка загрузки'}</Alert>
+				<Button onClick={load}>Повторить</Button>
 			</div>
 		);
 	}
@@ -48,69 +46,101 @@ export function RoomDetailsPage() {
 	if (!room) return null;
 
 	return (
-		<div style={{ display: 'grid', gap: 14 }}>
-			<div style={{ display: 'flex', justifyContent: 'space-between', gap: 10 }}>
+		<div className="stack">
+			<div style={{ display: 'grid', gap: 12 }}>
 				<h1 style={{ margin: 0 }}>{room.title}</h1>
-				<div style={{ fontSize: 14, opacity: 0.7 }}>№ {room.number}</div>
-			</div>
-
-			<div style={{ display: 'grid', gap: 6 }}>
-				<div style={{ fontSize: 14, opacity: 0.85 }}>{room.description}</div>
-				<div style={{ fontSize: 14 }}>
-					<b>{room.price} ₽</b> / ночь
-				</div>
-				<div style={{ fontSize: 14, opacity: 0.85 }}>
-					Статус: <b>{room.status}</b>
+				<div style={{ fontSize: 14, opacity: 0.75 }}>
+					№ {room.number} • {room.price} ₽ / ночь • Статус: <b>{room.status}</b>
 				</div>
 			</div>
 
 			<div
 				style={{
-					height: 320,
-					borderRadius: 14,
-					background: 'rgba(0,0,0,0.06)',
-					overflow: 'hidden',
+					display: 'grid',
+					gridTemplateColumns: 'minmax(0, 1.4fr) minmax(0, 1fr)',
+					gap: 14,
+					alignItems: 'start',
 				}}
 			>
-				<img
-					src={room.image}
-					alt={room.title}
-					style={{
-						width: '100%',
-						height: '100%',
-						objectFit: 'cover',
-						display: 'block',
-					}}
-				/>
-			</div>
-
-			{Array.isArray(room.gallery) && room.gallery.length > 0 && (
-				<div style={{ display: 'flex', gap: 10, flexWrap: 'wrap' }}>
-					{room.gallery.map((src) => (
-						<img
-							key={src}
-							src={src}
-							alt="gallery"
+				<Card>
+					<div className="stack">
+						<div
 							style={{
-								width: 120,
-								height: 80,
-								borderRadius: 10,
-								objectFit: 'cover',
-								border: '1px solid rgba(0,0,0,0.12)',
+								height: 360,
+								borderRadius: 14,
+								overflow: 'hidden',
+								border: '1px solid rgba(0,0,0,0.10)',
+								background: 'rgba(0,0,0,0.04)',
 							}}
-							loading="lazy"
-						/>
-					))}
-				</div>
-			)}
+						>
+							<img
+								src={room.image}
+								alt={room.title}
+								style={{
+									width: '100%',
+									height: '100%',
+									objectFit: 'cover',
+									display: 'block',
+								}}
+							/>
+						</div>
 
-			{Array.isArray(room.amenities) && room.amenities.length > 0 && (
-				<div style={{ fontSize: 14, opacity: 0.9 }}>
-					<b>Удобства:</b> {room.amenities.join(', ')}
-				</div>
-			)}
+						<div style={{ fontSize: 14, opacity: 0.9 }}>
+							{room.description}
+						</div>
 
-			<BookingForm roomId={room.id} roomStatus={room.status} onBooked={load} />
+						{Array.isArray(room.amenities) && room.amenities.length > 0 && (
+							<div style={{ fontSize: 14, opacity: 0.9 }}>
+								<b>Удобства:</b> {room.amenities.join(', ')}
+							</div>
+						)}
+
+						{Array.isArray(room.gallery) && room.gallery.length > 0 && (
+							<div style={{ display: 'grid', gap: 10 }}>
+								<div style={{ fontSize: 14, opacity: 0.85 }}>
+									<b>Галерея номера</b>
+								</div>
+
+								<div
+									style={{
+										display: 'grid',
+										gridTemplateColumns:
+											'repeat(auto-fit, minmax(140px, 1fr))',
+										gap: 10,
+									}}
+								>
+									{room.gallery.map((src) => (
+										<div
+											key={src}
+											style={{
+												height: 90,
+												borderRadius: 12,
+												overflow: 'hidden',
+												border: '1px solid rgba(0,0,0,0.10)',
+												background: 'rgba(0,0,0,0.04)',
+											}}
+										>
+											<img
+												src={src}
+												alt="gallery"
+												style={{
+													width: '100%',
+													height: '100%',
+													objectFit: 'cover',
+													display: 'block',
+												}}
+												loading="lazy"
+											/>
+										</div>
+									))}
+								</div>
+							</div>
+						)}
+					</div>
+				</Card>
+
+				<BookingForm roomId={room.id} roomStatus={room.status} onBooked={load} />
+			</div>
 		</div>
 	);
 }

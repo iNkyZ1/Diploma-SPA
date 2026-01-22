@@ -8,7 +8,7 @@ import {
 	selectBookingsError,
 	selectBookingsStatus,
 	selectDeletingId,
-} from '../../features/bookings/model/bookingsSlice';
+} from '../../features/booking/model/bookingsSlice';
 import { fetchRoomsThunk, selectRooms } from '../../features/rooms/model/roomsSlice';
 import { BookingCard } from '../../entities/booking';
 import { Alert } from '../../shared/ui/Alert';
