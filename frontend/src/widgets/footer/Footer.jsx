@@ -5,6 +5,7 @@ export function Footer() {
 				padding: 16,
 				borderTop: '1px solid rgba(0,0,0,0.08)',
 				marginTop: 24,
+				background: '#fff',
 			}}
 		>
 			<div
@@ -15,11 +16,22 @@ export function Footer() {
 					justifyContent: 'space-between',
 					gap: 12,
 					fontSize: 14,
-					opacity: 0.8,
+					opacity: 0.85,
+					alignItems: 'center',
 				}}
 			>
-				<span>Hotel Booking SPA</span>
-				<span>{new Date().getFullYear()}</span>
+				<div style={{ display: 'grid', gap: 4 }}>
+					<div style={{ fontSize: 12, opacity: 0.8 }}>
+						Телефон: +7 (3952) 123-456
+					</div>
+					<div style={{ fontSize: 12, opacity: 0.8 }}>
+						Email: info@example.ru
+					</div>
+				</div>
+
+				<div style={{ fontSize: 12, opacity: 0.7 }}>
+					© {new Date().getFullYear()} Отель "Жемчужина Байкала"
+				</div>
 			</div>
 		</footer>
 	);
