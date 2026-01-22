@@ -5,19 +5,17 @@ export function Footer() {
 				padding: 16,
 				borderTop: '1px solid rgba(0,0,0,0.08)',
 				marginTop: 24,
-				background: '#fff',
+				background: 'white',
 			}}
 		>
 			<div
+				className="container"
 				style={{
-					maxWidth: 1100,
-					margin: '0 auto',
 					display: 'flex',
 					justifyContent: 'space-between',
 					gap: 12,
-					fontSize: 14,
-					opacity: 0.85,
 					alignItems: 'center',
+					flexWrap: 'wrap',
 				}}
 			>
 				<div style={{ display: 'grid', gap: 4 }}>

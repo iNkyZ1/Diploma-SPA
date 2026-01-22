@@ -7,11 +7,12 @@ import {
 	selectUser,
 } from '../../features/auth/model/authSlice';
 import { DevTools } from './DevTools';
+import { Button } from '../../shared/ui/Button';
 
 const linkStyle = ({ isActive }) => ({
 	textDecoration: 'none',
 	padding: '8px 10px',
-	borderRadius: 8,
+	borderRadius: 10,
 	color: 'inherit',
 	background: isActive ? 'rgba(0,0,0,0.06)' : 'transparent',
 });
@@ -30,31 +31,40 @@ export function Header() {
 	};
 
 	return (
-		<header style={{ padding: 16, borderBottom: '1px solid rgba(0,0,0,0.08)' }}>
+		<header
+			style={{
+				padding: 16,
+				borderBottom: '1px solid rgba(0,0,0,0.08)',
+				background: 'white',
+			}}
+		>
 			<div
-				style={{
-					maxWidth: 1100,
-					margin: '0 auto',
-					display: 'flex',
-					gap: 12,
-					alignItems: 'center',
-				}}
+				className="container"
+				style={{ display: 'flex', gap: 12, alignItems: 'center' }}
 			>
-				<NavLink to="/" style={linkStyle}>
-					Главная
-				</NavLink>
+				<nav
+					style={{
+						display: 'flex',
+						gap: 8,
+						alignItems: 'center',
+						flex: 1,
+						flexWrap: 'wrap',
+					}}
+				>
+					<NavLink to="/" style={linkStyle}>
+						Главная
+					</NavLink>
 
-				<NavLink to="/gallery" style={linkStyle}>
-					Галерея
-				</NavLink>
-
-				<NavLink to="/services" style={linkStyle}>
-					Сервисы
-				</NavLink>
-
-				<nav style={{ display: 'flex', gap: 8, alignItems: 'center', flex: 1 }}>
 					<NavLink to="/rooms" style={linkStyle}>
 						Номера
+					</NavLink>
+
+					<NavLink to="/gallery" style={linkStyle}>
+						Галерея
+					</NavLink>
+
+					<NavLink to="/services" style={linkStyle}>
+						Сервисы
 					</NavLink>
 
 					{isAuthed && (
@@ -70,7 +80,14 @@ export function Header() {
 					)}
 				</nav>
 
-				<div style={{ display: 'flex', gap: 8, alignItems: 'center' }}>
+				<div
+					style={{
+						display: 'flex',
+						gap: 8,
+						alignItems: 'center',
+						flexWrap: 'wrap',
+					}}
+				>
 					<DevTools />
 
 					{isAuthed ? (
@@ -78,7 +95,7 @@ export function Header() {
 							<span style={{ fontSize: 14, opacity: 0.8 }}>
 								{user?.login} ({user?.role})
 							</span>
-							<button onClick={onLogout}>Выйти</button>
+							<Button onClick={onLogout}>Выйти</Button>
 						</>
 					) : (
 						<>

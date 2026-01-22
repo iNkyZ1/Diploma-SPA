@@ -64,14 +64,7 @@ export function RoomsListPage() {
 	};
 
 	return (
-		<div
-			style={{
-				display: 'flex',
-				flexDirection: 'column',
-				gap: 14,
-				minHeight: '70vh',
-			}}
-		>
+		<div className="stack" style={{ minHeight: '70vh' }}>
 			<h1>Доступные номера</h1>
 
 			{status === 'loading' && <div>Загрузка...</div>}

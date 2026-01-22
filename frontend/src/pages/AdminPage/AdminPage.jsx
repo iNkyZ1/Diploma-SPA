@@ -46,7 +46,7 @@ export function AdminPage() {
 	};
 
 	return (
-		<div style={{ display: 'grid', gap: 14 }}>
+		<div className="stack">
 			<h1>Панель администратора</h1>
 			<div style={{ fontSize: 14, opacity: 0.8 }}>
 				Клик по номеру переключает статус: <b>свободен</b> ↔ <b>занят</b>

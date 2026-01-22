@@ -51,24 +51,20 @@ export function MyBookingsPage() {
 	};
 
 	return (
-		<div style={{ display: 'grid', gap: 14 }}>
+		<div className="stack">
+			{' '}
 			<h1>Мои брони</h1>
-
 			{uiError && <Alert>{uiError}</Alert>}
-
 			{status === 'loading' && <div>Загрузка...</div>}
-
 			{status === 'failed' && (
 				<div style={{ display: 'grid', gap: 10 }}>
 					<Alert>{getApiErrorMessage(error) || 'Ошибка загрузки'}</Alert>
 					<Button onClick={load}>Повторить</Button>
 				</div>
 			)}
-
 			{status === 'succeeded' && bookings.length === 0 && (
 				<div>У вас пока нет броней.</div>
 			)}
-
 			{status === 'succeeded' && bookings.length > 0 && (
 				<section style={{ display: 'grid', gap: 12 }}>
 					{bookings.map((b) => (
