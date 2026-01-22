@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { useAppDispatch, useAppSelector } from '../../app/store/hooks';
 import {
 	fetchRoomStatusesThunk,
@@ -9,14 +9,8 @@ import {
 	setRoomStatusThunk,
 } from '../../features/admin/model/adminSlice';
 import { RoomStatusTile } from '../../features/admin/ui/RoomStatusTile';
-
-function getErrorText(err) {
-	if (!err) return null;
-	if (err.status === 403) return 'Недостаточно прав (нужен admin)';
-	if (err.status === 401) return 'Нужно войти';
-	if (err.status === 0) return 'Сеть недоступна. Попробуйте ещё раз.';
-	return err.message || 'Ошибка';
-}
+import { Alert } from '../../shared/ui/Alert';
+import { getApiErrorMessage } from '../../shared/lib/getApiErrorMessage';
 
 export function AdminPage() {
 	const dispatch = useAppDispatch();
@@ -26,7 +20,12 @@ export function AdminPage() {
 	const error = useAppSelector(selectAdminError);
 	const updatingId = useAppSelector(selectAdminUpdatingId);
 
-	const load = () => dispatch(fetchRoomStatusesThunk());
+	const [uiError, setUiError] = useState(null);
+
+	const load = () => {
+		setUiError(null);
+		dispatch(fetchRoomStatusesThunk());
+	};
 
 	useEffect(() => {
 		load();
@@ -34,13 +33,14 @@ export function AdminPage() {
 	}, []);
 
 	const onToggle = async (item) => {
+		setUiError(null);
 		const nextStatus = item.status === 'available' ? 'reserved' : 'available';
 		const res = await dispatch(
 			setRoomStatusThunk({ roomId: item.roomId, status: nextStatus }),
 		);
 
 		if (setRoomStatusThunk.rejected.match(res)) {
-			alert(getErrorText(res.payload) || 'Ошибка обновления статуса');
+			setUiError(getApiErrorMessage(res.payload) || 'Ошибка обновления статуса');
 		}
 	};
 
@@ -51,11 +51,13 @@ export function AdminPage() {
 				Клик по номеру переключает статус: <b>свободен</b> ↔ <b>занят</b>
 			</div>
 
+			{uiError && <Alert>{uiError}</Alert>}
+
 			{status === 'loading' && <div>Загрузка...</div>}
 
 			{status === 'failed' && (
 				<div style={{ display: 'grid', gap: 10 }}>
-					<div style={{ color: 'crimson' }}>{getErrorText(error)}</div>
+					<Alert>{getApiErrorMessage(error) || 'Ошибка загрузки'}</Alert>
 					<button onClick={load} style={{ width: 'fit-content' }}>
 						Повторить
 					</button>

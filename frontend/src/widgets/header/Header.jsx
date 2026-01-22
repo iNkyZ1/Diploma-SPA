@@ -6,6 +6,7 @@ import {
 	selectIsAuthed,
 	selectUser,
 } from '../../features/auth/model/authSlice';
+import { DevTools } from './DevTools';
 
 const linkStyle = ({ isActive }) => ({
 	textDecoration: 'none',
@@ -58,6 +59,8 @@ export function Header() {
 				</nav>
 
 				<div style={{ display: 'flex', gap: 8, alignItems: 'center' }}>
+					<DevTools />
+
 					{isAuthed ? (
 						<>
 							<span style={{ fontSize: 14, opacity: 0.8 }}>

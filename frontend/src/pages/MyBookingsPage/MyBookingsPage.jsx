@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 
 import { useAppDispatch, useAppSelector } from '../../app/store/hooks';
 import {
@@ -10,14 +10,9 @@ import {
 	selectDeletingId,
 } from '../../features/bookings/model/bookingsSlice';
 import { fetchRoomsThunk, selectRooms } from '../../features/rooms/model/roomsSlice';
-import { BookingCard } from '../../entities/booking/BookingCard';
-
-function getErrorText(err) {
-	if (!err) return null;
-	if (err.status === 401) return 'Нужно войти в аккаунт';
-	if (err.status === 0) return 'Сеть недоступна. Попробуйте ещё раз.';
-	return err.message || 'Ошибка';
-}
+import { BookingCard } from '../../entities/booking';
+import { Alert } from '../../shared/ui/Alert';
+import { getApiErrorMessage } from '../../shared/lib/getApiErrorMessage';
 
 export function MyBookingsPage() {
 	const dispatch = useAppDispatch();
@@ -29,8 +24,12 @@ export function MyBookingsPage() {
 
 	const rooms = useAppSelector(selectRooms);
 
+	const [uiError, setUiError] = useState(null);
+
 	const load = () => {
+		setUiError(null);
 		dispatch(fetchBookingsThunk());
+
 		if (rooms.length === 0) dispatch(fetchRoomsThunk());
 	};
 
@@ -42,9 +41,11 @@ export function MyBookingsPage() {
 	const roomsById = new Map(rooms.map((r) => [r.id, r]));
 
 	const onDelete = async (bookingId) => {
+		setUiError(null);
 		const res = await dispatch(deleteBookingThunk(bookingId));
+
 		if (deleteBookingThunk.rejected.match(res)) {
-			alert(getErrorText(res.payload) || 'Ошибка удаления');
+			setUiError(getApiErrorMessage(res.payload) || 'Ошибка удаления');
 		}
 	};
 
@@ -52,11 +53,13 @@ export function MyBookingsPage() {
 		<div style={{ display: 'grid', gap: 14 }}>
 			<h1>Мои брони</h1>
 
+			{uiError && <Alert>{uiError}</Alert>}
+
 			{status === 'loading' && <div>Загрузка...</div>}
 
 			{status === 'failed' && (
 				<div style={{ display: 'grid', gap: 10 }}>
-					<div style={{ color: 'crimson' }}>{getErrorText(error)}</div>
+					<Alert>{getApiErrorMessage(error) || 'Ошибка загрузки'}</Alert>
 					<button onClick={load} style={{ width: 'fit-content' }}>
 						Повторить
 					</button>
