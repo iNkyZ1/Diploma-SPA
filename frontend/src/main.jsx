@@ -4,6 +4,7 @@ import App from './App.jsx';
 import './shared/styles/theme.css';
 import './shared/styles/base.css';
 import './shared/styles/utilities.css';
+import './shared/styles/components.css';
 import './index.css';
 
 import { Provider } from 'react-redux';

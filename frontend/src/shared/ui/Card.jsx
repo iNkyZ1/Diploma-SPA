@@ -1,13 +1,5 @@
-export function Card({ children }) {
+export function Card({ children, className = '' }) {
 	return (
-		<div
-			style={{
-				border: '1px solid rgba(0,0,0,0.12)',
-				borderRadius: 14,
-				padding: 12,
-			}}
-		>
-			{children}
-		</div>
+		<div className={['card', className].filter(Boolean).join(' ')}>{children}</div>
 	);
 }

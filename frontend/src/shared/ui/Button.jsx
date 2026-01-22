@@ -1,16 +1,16 @@
-export function Button({ children, disabled, ...props }) {
+export function Button({
+	children,
+	className = '',
+	fullWidth = false,
+	disabled,
+	...props
+}) {
+	const classes = ['btn', fullWidth ? 'btn--block' : '', className]
+		.filter(Boolean)
+		.join(' ');
+
 	return (
-		<button
-			{...props}
-			disabled={disabled}
-			style={{
-				padding: '10px 14px',
-				borderRadius: 10,
-				border: '1px solid rgba(0,0,0,0.2)',
-				background: disabled ? 'rgba(0,0,0,0.05)' : 'white',
-				cursor: disabled ? 'not-allowed' : 'pointer',
-			}}
-		>
+		<button {...props} disabled={disabled} className={classes}>
 			{children}
 		</button>
 	);

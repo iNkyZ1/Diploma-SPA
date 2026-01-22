@@ -1,0 +1,92 @@
+.btn {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	gap: 8px;
+
+	padding: 10px 14px;
+	border-radius: var(--radius-sm);
+	border: 1px solid var(--border);
+	background: var(--btn-bg);
+	cursor: pointer;
+
+	transition:
+		background 140ms ease,
+		transform 80ms ease,
+		box-shadow 140ms ease;
+}
+
+.btn:hover:not(:disabled) {
+	background: var(--btn-bg-hover);
+}
+
+.btn:active:not(:disabled) {
+	background: var(--btn-bg-active);
+	transform: translateY(1px);
+}
+
+.btn:disabled {
+	cursor: not-allowed;
+	opacity: 0.6;
+}
+
+.btn--block {
+	width: 100%;
+}
+
+.field {
+	display: grid;
+	gap: 6px;
+}
+
+.field__label {
+	font-size: 14px;
+}
+
+.input {
+	padding: 10px 12px;
+	border-radius: var(--radius-sm);
+	border: 1px solid rgba(0, 0, 0, 0.2);
+	outline: none;
+	background: white;
+}
+
+.input:focus {
+	border-color: rgba(0, 0, 0, 0.35);
+}
+
+.input--error {
+	border-color: crimson;
+}
+
+.field__error {
+	color: crimson;
+	font-size: 12px;
+}
+
+.card {
+	border: 1px solid var(--border);
+	border-radius: var(--radius-lg);
+	padding: 14px;
+	background: var(--bg);
+	box-shadow: var(--shadow-sm);
+}
+
+.alert {
+	padding: 10px;
+	border-radius: var(--radius-md);
+	border: 1px solid rgba(0, 0, 0, 0.15);
+	background: rgba(0, 0, 0, 0.03);
+	font-size: 14px;
+}
+
+.alert--danger {
+	border-color: crimson;
+	background: rgba(220, 20, 60, 0.06);
+	color: crimson;
+}
+
+.loader {
+	font-size: 14px;
+	opacity: 0.8;
+}
