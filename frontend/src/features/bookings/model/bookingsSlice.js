@@ -47,6 +47,7 @@ const bookingsSlice = createSlice({
 		items: [],
 		status: 'idle',
 		error: null,
+		deletingId: null,
 	},
 	reducers: {
 		clearBookings(state) {
@@ -83,20 +84,26 @@ const bookingsSlice = createSlice({
 				state.error = action.payload || { message: 'Unknown error' };
 			})
 
-			.addCase(deleteBookingThunk.pending, (state) => {
+			.addCase(deleteBookingThunk.pending, (state, action) => {
 				state.status = 'loading';
 				state.error = null;
+				state.deletingId = action.meta.arg;
 			})
 			.addCase(deleteBookingThunk.fulfilled, (state, action) => {
 				state.status = 'succeeded';
+				const bookingId = action.meta.arg;
+				state.items = state.items.filter((b) => b.id !== bookingId);
+				state.deletingId = null;
 			})
 			.addCase(deleteBookingThunk.rejected, (state, action) => {
 				state.status = 'failed';
 				state.error = action.payload || { message: 'Unknown error' };
+				state.deletingId = null;
 			});
 	},
 });
 
+export const selectDeletingId = (s) => s.bookings.deletingId;
 export const { clearBookings } = bookingsSlice.actions;
 export const bookingsReducer = bookingsSlice.reducer;
 

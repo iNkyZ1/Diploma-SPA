@@ -8,7 +8,7 @@ import {
 	selectRoomsError,
 	selectRoomsStatus,
 } from '../../features/rooms/model/roomsSlice';
-import { BookingForm } from '../../features/booking/ui/BookingForm';
+import { BookingForm } from '../../features/bookings/ui/BookingForm';
 
 function getErrorText(err) {
 	if (!err) return null;
