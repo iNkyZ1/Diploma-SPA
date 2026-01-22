@@ -2,37 +2,78 @@ import { Link } from 'react-router-dom';
 
 export function HomePage() {
 	return (
-		<div style={{ display: 'grid', gap: 14 }}>
-			<h1>Отель “Жемчужина Байкала”</h1>
+		<div
+			style={{
+				width: '100vw',
+				marginLeft: 'calc(50% - 50vw)',
+				marginRight: 'calc(50% - 50vw)',
+
+				minHeight: '72vh',
+				backgroundImage: "url('/images/homepage-bg.webp')",
+				backgroundSize: 'cover',
+				backgroundPosition: 'center',
+				position: 'relative',
+				display: 'grid',
+				alignItems: 'center',
+			}}
+		>
+			<div
+				style={{
+					position: 'absolute',
+					inset: 0,
+					background:
+						'linear-gradient(90deg, rgba(0,0,0,0.55) 0%, rgba(0,0,0,0.20) 60%, rgba(0,0,0,0.10) 100%)',
+				}}
+			/>
 
 			<div
 				style={{
-					height: 360,
-					borderRadius: 16,
-					overflow: 'hidden',
-					border: '1px solid rgba(0,0,0,0.12)',
-					background: 'rgba(0,0,0,0.06)',
+					position: 'relative',
+					maxWidth: 1100,
+					margin: '0 auto',
+					width: '100%',
+					padding: '28px 16px',
+					display: 'grid',
+					gap: 14,
 				}}
 			>
-				<img
-					src="/images/homepage-bg.webp"
-					alt="Hotel"
-					style={{
-						width: '100%',
-						height: '100%',
-						objectFit: 'cover',
-						display: 'block',
-					}}
-				/>
-			</div>
+				<div style={{ display: 'grid', gap: 10, maxWidth: 620 }}>
+					<h1
+						style={{
+							margin: 0,
+							color: 'white',
+							fontSize: 42,
+							lineHeight: 1.1,
+							letterSpacing: 0.2,
+							textShadow: '0 2px 12px rgba(0,0,0,0.35)',
+						}}
+					>
+						Отель “Жемчужина Байкала”
+					</h1>
 
-			<div style={{ fontSize: 14, opacity: 0.85, maxWidth: 760 }}>
-				Комфортные номера, уютная атмосфера и сервис для отдыха на Байкале.
-			</div>
+					<div
+						style={{
+							background: 'rgba(255,255,255,0.18)',
+							border: '1px solid rgba(255,255,255,0.25)',
+							borderRadius: 14,
+							padding: '12px 14px',
+							color: 'rgba(255,255,255,0.92)',
+							backdropFilter: 'blur(6px)',
+						}}
+					>
+						<div style={{ fontSize: 14, opacity: 0.95 }}>
+							Комфортные номера, уютная атмосфера и сервис для отдыха на
+							Байкале.
+						</div>
+					</div>
 
-			<Link to="/rooms" style={{ width: 'fit-content' }}>
-				<button>Перейти к номерам</button>
-			</Link>
+					<Link to="/rooms" style={{ width: 'fit-content' }}>
+						<button style={{ padding: '10px 16px' }}>
+							Перейти к номерам
+						</button>
+					</Link>
+				</div>
+			</div>
 		</div>
 	);
 }
