@@ -13,7 +13,7 @@ import { Pagination } from '../../shared/ui/Pagination';
 import { Alert } from '../../shared/ui/Alert';
 import { getApiErrorMessage } from '../../shared/lib/getApiErrorMessage';
 
-const PAGE_SIZE = 6;
+const PAGE_SIZE = 9;
 
 function clampPage(value, totalPages) {
 	const n = Number(value);
@@ -93,8 +93,8 @@ export function RoomsListPage() {
 					<section
 						style={{
 							display: 'grid',
-							gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))',
-							gap: 12,
+							gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))',
+							gap: 14,
 							width: '100%',
 							alignItems: 'stretch',
 						}}

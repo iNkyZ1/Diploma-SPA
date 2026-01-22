@@ -10,12 +10,12 @@ export function RoomCard({ room }) {
 				display: 'flex',
 				flexDirection: 'column',
 				gap: 12,
-				minHeight: 320,
+				minHeight: 340,
 			}}
 		>
 			<div
 				style={{
-					height: 170,
+					height: 190,
 					borderRadius: 12,
 					background: 'rgba(0,0,0,0.06)',
 					overflow: 'hidden',
