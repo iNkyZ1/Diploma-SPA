@@ -54,3 +54,11 @@ h1 {
 	line-height: 1.2;
 	margin: 0;
 }
+
+button:hover:not(:disabled) {
+	background: rgba(0, 0, 0, 0.04);
+}
+
+button:active:not(:disabled) {
+	transform: translateY(1px);
+}

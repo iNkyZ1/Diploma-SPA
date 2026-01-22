@@ -4,21 +4,33 @@ export function RoomCard({ room }) {
 	return (
 		<article
 			style={{
-				border: '1px solid rgba(0,0,0,0.12)',
-				borderRadius: 14,
+				border: '1px solid rgba(0,0,0,0.10)',
+				borderRadius: 16,
 				padding: 14,
 				display: 'flex',
 				flexDirection: 'column',
 				gap: 12,
 				minHeight: 340,
+				background: '#fff',
+				boxShadow: '0 6px 18px rgba(0,0,0,0.06)',
+				transition: 'transform 160ms ease, box-shadow 160ms ease',
+			}}
+			onMouseEnter={(e) => {
+				e.currentTarget.style.transform = 'translateY(-2px)';
+				e.currentTarget.style.boxShadow = '0 10px 24px rgba(0,0,0,0.09)';
+			}}
+			onMouseLeave={(e) => {
+				e.currentTarget.style.transform = 'translateY(0)';
+				e.currentTarget.style.boxShadow = '0 6px 18px rgba(0,0,0,0.06)';
 			}}
 		>
 			<div
 				style={{
 					height: 190,
-					borderRadius: 12,
-					background: 'rgba(0,0,0,0.06)',
+					borderRadius: 14,
 					overflow: 'hidden',
+					border: '1px solid rgba(0,0,0,0.10)',
+					background: 'rgba(0,0,0,0.04)',
 				}}
 			>
 				<img
