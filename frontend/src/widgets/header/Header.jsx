@@ -40,6 +40,18 @@ export function Header() {
 					alignItems: 'center',
 				}}
 			>
+				<NavLink to="/" style={linkStyle}>
+					Главная
+				</NavLink>
+
+				<NavLink to="/gallery" style={linkStyle}>
+					Галерея
+				</NavLink>
+
+				<NavLink to="/services" style={linkStyle}>
+					Сервисы
+				</NavLink>
+
 				<nav style={{ display: 'flex', gap: 8, alignItems: 'center', flex: 1 }}>
 					<NavLink to="/rooms" style={linkStyle}>
 						Номера

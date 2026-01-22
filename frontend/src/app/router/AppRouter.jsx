@@ -10,12 +10,17 @@ import { MyBookingsPage } from '../../pages/MyBookingsPage/MyBookingsPage';
 import { AdminPage } from '../../pages/AdminPage/AdminPage';
 import { AuthLoginPage } from '../../pages/AuthLoginPage/AuthLoginPage';
 import { AuthRegisterPage } from '../../pages/AuthRegisterPage/AuthRegisterPage';
+import { HomePage } from '../../pages/HomePage/HomePage';
+import { GalleryPage } from '../../pages/GalleryPage/GalleryPage';
+import { ServicesPage } from '../../pages/ServicesPage/ServicesPage';
 
 export function AppRouter() {
 	return (
 		<Routes>
 			<Route element={<AppLayout />}>
-				<Route path="/" element={<Navigate to="/rooms" replace />} />
+				<Route path="/" element={<HomePage />} />
+				<Route path="/gallery" element={<GalleryPage />} />
+				<Route path="/services" element={<ServicesPage />} />
 
 				<Route path="/rooms" element={<RoomsListPage />} />
 				<Route path="/rooms/:id" element={<RoomDetailsPage />} />
