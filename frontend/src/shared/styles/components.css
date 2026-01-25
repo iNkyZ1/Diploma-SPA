@@ -166,3 +166,70 @@
 .btn--tileReserved {
 	background: rgba(0, 0, 0, 0.1);
 }
+
+.roomCard {
+	border: 1px solid var(--border);
+	border-radius: var(--radius-lg);
+	padding: 14px;
+
+	display: flex;
+	flex-direction: column;
+	gap: 12px;
+
+	min-height: 340px;
+	background: var(--bg);
+
+	box-shadow: var(--shadow-sm);
+	transition:
+		transform 160ms ease,
+		box-shadow 160ms ease;
+}
+
+.roomCard:hover {
+	transform: translateY(-2px);
+	box-shadow: var(--shadow-md);
+}
+
+.roomCard__media {
+	height: 190px;
+	border-radius: var(--radius-md);
+	overflow: hidden;
+	border: 1px solid var(--border);
+	background: rgba(0, 0, 0, 0.04);
+}
+
+.roomCard__img {
+	width: 100%;
+	height: 100%;
+	object-fit: cover;
+	display: block;
+}
+
+.roomCard__meta {
+	display: grid;
+	gap: 6px;
+}
+
+.roomCard__row {
+	display: flex;
+	justify-content: space-between;
+	gap: 10px;
+}
+
+.roomCard__title {
+	font-size: 16px;
+}
+
+.roomCard__number {
+	font-size: 12px;
+	opacity: 0.7;
+}
+
+.roomCard__price {
+	font-size: 14px;
+	opacity: 0.85;
+}
+
+.roomCard__actions {
+	margin-top: auto;
+}
