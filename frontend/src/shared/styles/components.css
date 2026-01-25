@@ -94,3 +94,61 @@
 .btn--active {
 	background: rgba(0, 0, 0, 0.06);
 }
+
+.appHeader {
+	padding: 16px;
+	border-bottom: 1px solid rgba(0, 0, 0, 0.08);
+	background: white;
+}
+
+.appFooter {
+	padding: 16px;
+	border-top: 1px solid rgba(0, 0, 0, 0.08);
+	margin-top: 24px;
+	background: white;
+}
+
+.headerRow {
+	display: flex;
+	gap: 12px;
+	align-items: center;
+}
+
+.nav {
+	display: flex;
+	gap: 8px;
+	align-items: center;
+	flex: 1;
+	flex-wrap: wrap;
+}
+
+.navLink {
+	text-decoration: none;
+	padding: 8px 10px;
+	border-radius: var(--radius-sm);
+	color: inherit;
+}
+
+.navLink:hover {
+	text-decoration: none;
+	background: rgba(0, 0, 0, 0.04);
+}
+
+.navLink--active {
+	background: rgba(0, 0, 0, 0.06);
+}
+
+.headerTools {
+	display: flex;
+	gap: 8px;
+	align-items: center;
+	flex-wrap: wrap;
+}
+
+.footerRow {
+	display: flex;
+	justify-content: space-between;
+	gap: 12px;
+	align-items: center;
+	flex-wrap: wrap;
+}

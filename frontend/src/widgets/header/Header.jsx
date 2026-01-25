@@ -9,13 +9,7 @@ import {
 import { DevTools } from './DevTools';
 import { Button } from '../../shared/ui/Button';
 
-const linkStyle = ({ isActive }) => ({
-	textDecoration: 'none',
-	padding: '8px 10px',
-	borderRadius: 10,
-	color: 'inherit',
-	background: isActive ? 'rgba(0,0,0,0.06)' : 'transparent',
-});
+const navLinkClass = ({ isActive }) => (isActive ? 'navLink navLink--active' : 'navLink');
 
 export function Header() {
 	const dispatch = useAppDispatch();
@@ -31,63 +25,35 @@ export function Header() {
 	};
 
 	return (
-		<header
-			style={{
-				padding: 16,
-				borderBottom: '1px solid rgba(0,0,0,0.08)',
-				background: 'white',
-			}}
-		>
-			<div
-				className="container"
-				style={{ display: 'flex', gap: 12, alignItems: 'center' }}
-			>
-				<nav
-					style={{
-						display: 'flex',
-						gap: 8,
-						alignItems: 'center',
-						flex: 1,
-						flexWrap: 'wrap',
-					}}
-				>
-					<NavLink to="/" style={linkStyle}>
+		<header className="appHeader">
+			<div className="container headerRow">
+				<nav className="nav">
+					<NavLink to="/" className={navLinkClass}>
 						Главная
 					</NavLink>
-
-					<NavLink to="/rooms" style={linkStyle}>
+					<NavLink to="/rooms" className={navLinkClass}>
 						Номера
 					</NavLink>
-
-					<NavLink to="/gallery" style={linkStyle}>
+					<NavLink to="/gallery" className={navLinkClass}>
 						Галерея
 					</NavLink>
-
-					<NavLink to="/services" style={linkStyle}>
+					<NavLink to="/services" className={navLinkClass}>
 						Сервисы
 					</NavLink>
 
 					{isAuthed && (
-						<NavLink to="/my-bookings" style={linkStyle}>
+						<NavLink to="/my-bookings" className={navLinkClass}>
 							Мои брони
 						</NavLink>
 					)}
-
 					{isAdmin && (
-						<NavLink to="/admin" style={linkStyle}>
+						<NavLink to="/admin" className={navLinkClass}>
 							Админ
 						</NavLink>
 					)}
 				</nav>
 
-				<div
-					style={{
-						display: 'flex',
-						gap: 8,
-						alignItems: 'center',
-						flexWrap: 'wrap',
-					}}
-				>
+				<div className="headerTools">
 					<DevTools />
 
 					{isAuthed ? (
@@ -99,10 +65,10 @@ export function Header() {
 						</>
 					) : (
 						<>
-							<NavLink to="/login" style={linkStyle}>
+							<NavLink to="/login" className={navLinkClass}>
 								Вход
 							</NavLink>
-							<NavLink to="/register" style={linkStyle}>
+							<NavLink to="/register" className={navLinkClass}>
 								Регистрация
 							</NavLink>
 						</>
