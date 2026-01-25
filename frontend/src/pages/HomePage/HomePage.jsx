@@ -1,4 +1,5 @@
 import { Link } from 'react-router-dom';
+import { Button } from '../../shared/ui/Button';
 
 export function HomePage() {
 	return (
@@ -68,9 +69,7 @@ export function HomePage() {
 					</div>
 
 					<Link to="/rooms" style={{ width: 'fit-content' }}>
-						<button style={{ padding: '10px 16px' }}>
-							Перейти к номерам
-						</button>
+						<Button>Перейти к номерам</Button>
 					</Link>
 				</div>
 			</div>

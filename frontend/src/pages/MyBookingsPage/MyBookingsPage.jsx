@@ -52,7 +52,6 @@ export function MyBookingsPage() {
 
 	return (
 		<div className="stack">
-			{' '}
 			<h1>Мои брони</h1>
 			{uiError && <Alert>{uiError}</Alert>}
 			{status === 'loading' && <div>Загрузка...</div>}

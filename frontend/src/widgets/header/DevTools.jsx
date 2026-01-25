@@ -1,4 +1,5 @@
 import { resetDb } from '../../shared/api/mock/mockDb';
+import { Button } from '../../shared/ui/Button';
 
 export function DevTools() {
 	if (!import.meta.env.DEV) return null;
@@ -9,8 +10,8 @@ export function DevTools() {
 	};
 
 	return (
-		<button onClick={onReset} title="Сбросить мок-данные (dev)">
+		<Button onClick={onReset} title="Сбросить мок-данные (dev)">
 			Reset DB
-		</button>
+		</Button>
 	);
 }

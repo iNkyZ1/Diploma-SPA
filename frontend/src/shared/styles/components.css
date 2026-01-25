@@ -152,3 +152,17 @@
 	align-items: center;
 	flex-wrap: wrap;
 }
+
+.btn--tile {
+	width: 64px;
+	height: 64px;
+	padding: 0;
+	border-radius: 14px;
+	display: grid;
+	gap: 4px;
+	place-items: center;
+}
+
+.btn--tileReserved {
+	background: rgba(0, 0, 0, 0.1);
+}
