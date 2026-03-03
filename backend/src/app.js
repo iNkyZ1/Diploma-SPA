@@ -3,6 +3,7 @@ const cors = require("cors");
 
 const { authRouter } = require("./routes/auth.routes");
 const { errorHandler } = require("./middleware/errorHandler");
+const { roomsRouter } = require("./routes/rooms.routes");
 
 const app = express();
 
@@ -19,7 +20,7 @@ app.get("/api/health", (req, res) => {
 });
 
 app.use("/api/auth", authRouter);
-
+app.use("/api/rooms", roomsRouter);
 app.use(errorHandler);
 
 module.exports = { app };
