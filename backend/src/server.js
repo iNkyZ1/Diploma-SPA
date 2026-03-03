@@ -1,7 +1,18 @@
 const { app } = require("./app");
+const { env } = require("./config/env");
+const { connectDb } = require("./config/db");
 
-const PORT = process.env.PORT || 4000;
+async function start() {
+  try {
+    await connectDb();
 
-app.listen(PORT, () => {
-  console.log(`[backend] Server started on http://localhost:${PORT}`);
-});
+    app.listen(env.port, () => {
+      console.log(`[backend] Server started on http://localhost:${env.port}`);
+    });
+  } catch (err) {
+    console.error("[backend] Failed to start:", err);
+    process.exit(1);
+  }
+}
+
+start();
