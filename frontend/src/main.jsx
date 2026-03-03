@@ -9,6 +9,13 @@ import './index.css';
 
 import { Provider } from 'react-redux';
 import { store } from './app/store/store.js';
+import { setOnUnauthorized } from './shared/api/http/httpClient';
+import { logout } from './features/auth/model/authSlice';
+
+setOnUnauthorized(() => {
+	store.dispatch(logout());
+	window.location.assign('/login');
+});
 
 ReactDOM.createRoot(document.getElementById('root')).render(
 	<React.StrictMode>

@@ -1,13 +1,14 @@
+let onUnauthorized = null;
+
+export function setOnUnauthorized(cb) {
+	onUnauthorized = cb;
+}
+
 export async function httpClient({ method, url, body, token }) {
 	const baseUrl = import.meta.env.VITE_API_BASE_URL || 'http://localhost:4000';
 
-	const headers = {
-		'Content-Type': 'application/json',
-	};
-
-	if (token) {
-		headers.Authorization = `Bearer ${token}`;
-	}
+	const headers = { 'Content-Type': 'application/json' };
+	if (token) headers.Authorization = `Bearer ${token}`;
 
 	const res = await fetch(`${baseUrl}${url}`, {
 		method,
@@ -19,6 +20,10 @@ export async function httpClient({ method, url, body, token }) {
 	const data = isJson ? await res.json() : null;
 
 	if (!res.ok) {
+		if (res.status === 401 && typeof onUnauthorized === 'function') {
+			onUnauthorized();
+		}
+
 		const err = new Error(data?.message || 'Request failed');
 		err.status = res.status;
 		err.details = data?.details;
