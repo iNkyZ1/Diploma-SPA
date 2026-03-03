@@ -1,3 +1,5 @@
+const mongoose = require("mongoose");
+
 const { Booking } = require("../models/Booking");
 const { Room } = require("../models/Room");
 const { HttpError } = require("../utils/httpError");
@@ -29,11 +31,7 @@ async function listBookings(req, res, next) {
 }
 
 async function createBooking(req, res, next) {
-  const session = await Booking.startSession();
-
   try {
-    session.startTransaction();
-
     const userId = req.user.id;
     const { roomId, checkIn, checkOut, guests } = req.body || {};
 
@@ -49,85 +47,77 @@ async function createBooking(req, res, next) {
     if (checkOut <= checkIn) {
       throw new HttpError(400, "Invalid dates");
     }
+    if (!mongoose.isValidObjectId(roomId)) {
+      throw new HttpError(400, "Invalid room id");
+    }
 
-    const room = await Room.findById(roomId).session(session);
-    if (!room) throw new HttpError(404, "Room not found");
+    const room = await Room.findOneAndUpdate(
+      { _id: roomId, status: "available" },
+      { $set: { status: "reserved" } },
+      { new: true },
+    );
 
-    if (room.status !== "available") {
+    if (!room) {
+      const exists = await Room.findById(roomId);
+      if (!exists) throw new HttpError(404, "Room not found");
       throw new HttpError(409, "Room is not available");
     }
 
-    const booking = await Booking.create(
-      [
-        {
-          userId,
-          roomId: room.id,
-          checkIn,
-          checkOut,
-          guests: Number(guests ?? 1),
-          status: "active",
+    try {
+      const booking = await Booking.create({
+        userId,
+        roomId: room.id,
+        checkIn,
+        checkOut,
+        guests: Number(guests ?? 1),
+        status: "active",
+      });
+
+      res.status(201).json({
+        booking: {
+          id: booking.id,
+          roomId: String(booking.roomId),
+          checkIn: booking.checkIn,
+          checkOut: booking.checkOut,
+          guests: booking.guests,
+          status: booking.status,
+          createdAt: booking.createdAt,
         },
-      ],
-      { session },
-    );
-
-    room.status = "reserved";
-    await room.save({ session });
-
-    await session.commitTransaction();
-
-    res.status(201).json({
-      booking: {
-        id: booking[0].id,
-        roomId: String(booking[0].roomId),
-        checkIn: booking[0].checkIn,
-        checkOut: booking[0].checkOut,
-        guests: booking[0].guests,
-        status: booking[0].status,
-        createdAt: booking[0].createdAt,
-      },
-    });
+      });
+    } catch (e) {
+      await Room.updateOne({ _id: roomId }, { $set: { status: "available" } });
+      throw e;
+    }
   } catch (e) {
-    await session.abortTransaction();
     next(e);
-  } finally {
-    session.endSession();
   }
 }
 
 async function deleteBooking(req, res, next) {
-  const session = await Booking.startSession();
-
   try {
-    session.startTransaction();
-
     const userId = req.user.id;
     const { bookingId } = req.params;
 
-    const booking = await Booking.findById(bookingId).session(session);
+    if (!mongoose.isValidObjectId(bookingId)) {
+      throw new HttpError(400, "Invalid booking id");
+    }
+
+    const booking = await Booking.findById(bookingId);
     if (!booking) throw new HttpError(404, "Booking not found");
 
     if (String(booking.userId) !== String(userId)) {
       throw new HttpError(403, "Forbidden");
     }
 
-    const room = await Room.findById(booking.roomId).session(session);
+    const roomId = String(booking.roomId);
 
-    await Booking.deleteOne({ _id: booking.id }).session(session);
+    await Booking.deleteOne({ _id: booking.id });
 
-    if (room) {
-      room.status = "available";
-      await room.save({ session });
-    }
-
-    await session.commitTransaction();
+    await Room.updateOne({ _id: roomId }, { $set: { status: "available" } });
 
     res.json({ ok: true });
   } catch (e) {
-    await session.abortTransaction();
     next(e);
-  } finally {
-    session.endSession();
   }
 }
 
