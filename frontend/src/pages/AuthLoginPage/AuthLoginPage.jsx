@@ -105,7 +105,7 @@ export function AuthLoginPage() {
 			</div>
 
 			<div style={{ fontSize: 12, opacity: 0.7 }}>
-				Тестовые данные мок-сервера: <b>admin/admin123</b> или <b>user/user123</b>
+				Пожалуйста, не вводите свои реальные данные.
 			</div>
 		</div>
 	);
