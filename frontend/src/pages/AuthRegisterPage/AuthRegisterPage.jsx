@@ -93,6 +93,10 @@ export function AuthRegisterPage() {
 			<div style={{ fontSize: 14 }}>
 				Уже есть аккаунт? <Link to="/login">Вход</Link>
 			</div>
+
+			<div style={{ fontSize: 12, opacity: 0.7 }}>
+				Пожалуйста, не вводите свои реальные данные.
+			</div>
 		</div>
 	);
 }
