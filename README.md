@@ -193,25 +193,25 @@ Backend реализован 1:1 к этому контракту, чтобы UI
 
 ## Структура проекта (вкратце)
 
-frontend/src/
-app/ # layout, router, store
-pages/ # страницы роутов
-features/ # auth, rooms, booking, admin
-entities/ # room, booking
-widgets/ # header/footer
-shared/
-api/ # apiClient (mock/real switch) + \*Api
-ui/ # Button/Input/Card/Alert/Loader/Pagination
-styles/ # theme/base/utilities/components
-lib/ # storage keys, error helpers
+- frontend/src/
+- app/ # layout, router, store
+- pages/ # страницы роутов
+- features/ # auth, rooms, booking, admin
+- entities/ # room, booking
+- widgets/ # header/footer
+- shared/
+- api/ # apiClient (mock/real switch) + \*Api
+- ui/ # Button/Input/Card/Alert/Loader/Pagination
+- styles/ # theme/base/utilities/components
+- lib/ # storage keys, error helpers
 
-backend/src/
-config/ # env + db
-routes/ # auth/rooms/bookings/admin
-controllers/ # логика эндпоинтов
-models/ # User/Room/Booking
-middleware/ # auth + requireAdmin + errorHandler
-utils/ # HttpError и т.п.
+- backend/src/
+- config/ # env + db
+- routes/ # auth/rooms/bookings/admin
+- controllers/ # логика эндпоинтов
+- models/ # User/Room/Booking
+- middleware/ # auth + requireAdmin + errorHandler
+- utils/ # HttpError и т.п.
 
 ## Примечания
 
